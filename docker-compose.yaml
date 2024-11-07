@@ -1,0 +1,23 @@
+version: "3"
+networks:
+  expense:
+volumes:
+  mysql: # docker volume created
+services:
+  mysql:
+    image: nagendra539/mysql:v1
+    container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql #mysql data will be saved in /var/lib/mysql 
+  backend:
+    image: nagendra539/backend:v1
+    container_name: backend
+    depends_on:
+      - mysql
+  frontend:
+    image: nagendra539/frontend:v1
+    container_name: frontend
+    depends_on:
+      - backend
+    ports:
+      - 80:80 
